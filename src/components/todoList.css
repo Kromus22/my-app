@@ -1,0 +1,21 @@
+.tasks-title {
+  display: flex;
+  justify-content: center;
+}
+
+.task {
+  border: 1px solid black;
+  border-radius: 10px;
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+input {
+  border: none;
+}
