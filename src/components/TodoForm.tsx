@@ -46,7 +46,7 @@ const TodoForm = () => {
       <Form>
         <Form.Control onChange={handleChangeTitle} placeholder={'Введите название'} />
         <Form.Control onChange={handleChangeDescr} placeholder={'Введите описание'} />
-        <Form.Control onChange={handleChangeDate} placeholder={'До какого числа выполнить задачу'} />
+        <Form.Control onChange={handleChangeDate} placeholder={'До какого числа выполнить задачу в формате YYYY-MM-DD'} />
         <Form.Group controlId="formFile" className="mb-3" onChange={handleChangeFile}>
           <Form.Label>Выберите файл если необходимо</Form.Label>
           <Form.Control type="file" />

@@ -19,3 +19,35 @@
 input {
   border: none;
 }
+
+textarea {
+  border: none;
+  display: block;
+  width: 300px;
+  height: 100px;
+}
+
+.task-red {
+  border: 1px solid red;
+  border-radius: 10px;
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.task-green {
+  border: 1px solid green;
+  background-color: lightgreen;
+  border-radius: 10px;
+  max-width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.task-green textarea {
+  background-color: lightgreen;
+}
+
+.task-green input {
+  background-color: lightgreen;
+}

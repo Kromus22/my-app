@@ -5,6 +5,7 @@ import firebaseApp from "../firebase";
 import { Todo } from "../types";
 import './todoList.css';
 import { useEffect, useState } from "react";
+import { checkDate, getClass } from "../utils";
 
 const TodoList = () => {
   const db = getDatabase(firebaseApp);
@@ -37,15 +38,42 @@ const TodoList = () => {
     remove(todoRef);
   };
 
+  const changeTodoTitle = (e: any, todo: Todo) => {
+    e.preventDefault()
+    const todoRef = ref(db, "/todos/" + todo.id);
+    update(todoRef, { title: e.target.value });
+  };
 
+  const changeTodoDescr = (e: any, todo: Todo) => {
+    e.preventDefault()
+    const todoRef = ref(db, "/todos/" + todo.id);
+    update(todoRef, { descr: e.target.value });
+  };
+
+  const changeTodoDate = (e: any, todo: Todo) => {
+    e.preventDefault()
+    const todoRef = ref(db, "/todos/" + todo.id);
+    update(todoRef, { date: e.target.value });
+  };
+
+  const checkExpired = (todo: Todo) => {
+    const todoRef = ref(db, "/todos/" + todo.id);
+    if (checkDate(todo.date)) {
+      return update(todoRef, { expired: true });
+    } else {
+      return update(todoRef, { expired: false });
+    }
+  }
 
   return (
     <>
       <h1 className="tasks-title">Список дел</h1>
       {todoList.map((todo) => {
+        checkExpired(todo);
+
         const file = String(todo.file)
         return (
-          <div className="task">
+          <div className={getClass(todo)}>
             <FormCheck
               key={todo.id}
               checked={todo.done}
@@ -56,14 +84,16 @@ const TodoList = () => {
               <input
                 type='text'
                 value={todo.title}
+                onChange={(e) => changeTodoTitle(e, todo)}
               />
-              <input
-                type='text'
+              <textarea
                 value={todo.descr}
+                onChange={(e) => changeTodoDescr(e, todo)}
               />
               <p>Необходимо выполнить до: <input
                 type='text'
                 value={todo.date}
+                onChange={(e) => changeTodoDate(e, todo)}
               />
               </p>
               {
@@ -73,7 +103,6 @@ const TodoList = () => {
 
             </div>
             <div className="buttons">
-              <Button variant="success">Редактировать</Button>
               <Button variant="danger" onClick={() => { handleDeleteTodo(todo.id) }}>Удалить</Button>
             </div>
           </div>
